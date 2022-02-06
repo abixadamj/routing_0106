@@ -3,7 +3,7 @@ from email.mime.text import MIMEText
 
 
 def mail_report(mail_to: str, data: str) -> bool:
-    ip = "mail_server_name"
+    ip = "SMTP_mail_server_name"
     port = 465  # For SSL
     login = ""
     password = ""
