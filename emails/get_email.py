@@ -10,6 +10,7 @@ passwords = {
     "adamj": "7f19a0a0c9b0a2d7fd04c07e8aa57f08",
 }
 
+
 @router.get("/test_email/{email_to}", tags=["emails", "aaa"])
 async def test_email_to(email_to: str, response: Response):
     if validate_my_email(email_to):
@@ -41,8 +42,3 @@ async def send_email_to(email_to: str, request: Request, response: Response, ema
         return Response(status_code=status.HTTP_201_CREATED)
     else:
         return Response(status_code=status.HTTP_502_BAD_GATEWAY)
-
-
-
-
-
