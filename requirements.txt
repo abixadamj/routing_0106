@@ -2,3 +2,5 @@ fastapi
 uvicorn
 starlette
 email-validator
+PySimpleGUI
+requests

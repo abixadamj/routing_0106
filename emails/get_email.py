@@ -23,7 +23,7 @@ async def test_email_to(email_to: str, response: Response):
 
 
 @router.put("/send_email/{email_to}", tags=["emails", "sending email"])
-async def send_email_to(email_to: str, request: Request, response: Response, email_body: str = "Welcome."):
+async def send_email_to(email_to: str, email_from: str, request: Request, response: Response, email_body: str = "Welcome."):
     """Authentication via X-Header : 'auth_id' """
 
     auth_id = request.headers.get("auth_id", "XXXX")
@@ -38,7 +38,32 @@ async def send_email_to(email_to: str, request: Request, response: Response, ema
     if email_body == " ":
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    if mail_report(email_to, email_body):
+    if mail_report(email_to, email_from, email_body):
+        return Response(status_code=status.HTTP_201_CREATED)
+    else:
+        return Response(status_code=status.HTTP_502_BAD_GATEWAY)
+
+
+@router.put("/send_email_header/", tags=["emails", "sending email"])
+async def send_email_to_h(request: Request):
+    """Authentication via X-Header : 'auth_id' """
+
+    email_to = request.headers.get("email_to", "XXXX")
+    email_from = request.headers.get("email_from", "XXXX")
+    email_body = request.headers.get("email_body", "XXXX")
+    auth_id = request.headers.get("auth_id", "XXXX")
+    auth_password = request.headers.get("auth_password", "XXXX")
+
+    if auth_id == "XXXX" or auth_password == "XXXX":
+        return Response(status_code=status.HTTP_400_BAD_REQUEST)
+    else:
+        if passwords[auth_id] != auth_password:
+            return Response(status_code=status.HTTP_401_UNAUTHORIZED)
+
+    if email_body == "XXXX":
+        return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+    if mail_report(email_to, email_from, email_body):
         return Response(status_code=status.HTTP_201_CREATED)
     else:
         return Response(status_code=status.HTTP_502_BAD_GATEWAY)

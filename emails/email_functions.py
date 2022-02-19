@@ -2,7 +2,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 
 
-def mail_report(mail_to: str, data: str) -> bool:
+def mail_report(mail_to: str, mail_from: str, data: str) -> bool:
     ip = "SMTP_mail_server_name"
     port = 465  # For SSL
     login = ""
@@ -12,7 +12,7 @@ def mail_report(mail_to: str, data: str) -> bool:
     text_type = 'plain'  # or 'html'
     msg = MIMEText(data, text_type, 'utf-8')
     msg['Subject'] = "Mail report - fastAPI APP"
-    msg['From'] = "my_email@domain"
+    msg['From'] = mail_from
     #
     msg['To'] = mail_to
 
