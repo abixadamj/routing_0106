@@ -6,12 +6,12 @@ def mail_report(mail_to: str, mail_from: str, data: str) -> bool:
     ip = "mail.abix.info.pl"
     port = 465  # For SSL
     login = "kielce-2022@abix.info.pl"
-    password = "xxxxxx"
+    password = ""
     ####
 
     text_type = 'plain'  # or 'html'
     msg = MIMEText(data, text_type, 'utf-8')
-    msg['Subject'] = "Mail report - fastAPI APP"
+    msg['Subject'] = "Pydantic Mail report - fastAPI APP"
     msg['From'] = mail_from
     #
     msg['To'] = mail_to

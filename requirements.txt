@@ -4,3 +4,4 @@ starlette
 email-validator
 PySimpleGUI
 requests
+pydantic
