@@ -2,6 +2,8 @@ import fastapi
 from emails.email_functions import mail_report
 from emails.email_validation import validate_my_email
 from fastapi import Response, status, Request
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 
 router = fastapi.APIRouter()
 
@@ -23,7 +25,8 @@ async def test_email_to(email_to: str, response: Response):
 
 
 @router.put("/send_email/{email_to}", tags=["emails", "sending email"])
-async def send_email_to(email_to: str, email_from: str, request: Request, response: Response, email_body: str = "Welcome."):
+async def send_email_to(email_to: str, email_from: str, request: Request, response: Response,
+                        email_body: str = "Welcome."):
     """Authentication via X-Header : 'auth_id' """
 
     auth_id = request.headers.get("auth_id", "XXXX")
@@ -63,7 +66,10 @@ async def send_email_to_h(request: Request):
     if email_body == "XXXX":
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
-    if mail_report(email_to, email_from, email_body):
+    mail_ok, report = mail_report(email_to, email_from, email_body)
+    if mail_ok:
         return Response(status_code=status.HTTP_201_CREATED)
     else:
-        return Response(status_code=status.HTTP_502_BAD_GATEWAY)
+        json_compatible_item_data = jsonable_encoder(report)
+        return JSONResponse(status_code=status.HTTP_451_UNAVAILABLE_FOR_LEGAL_REASONS,
+                            content=json_compatible_item_data)

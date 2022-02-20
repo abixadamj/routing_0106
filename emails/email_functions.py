@@ -3,10 +3,10 @@ from email.mime.text import MIMEText
 
 
 def mail_report(mail_to: str, mail_from: str, data: str) -> bool:
-    ip = "SMTP_mail_server_name"
+    ip = "mail.abix.info.pl"
     port = 465  # For SSL
-    login = ""
-    password = ""
+    login = "kielce-2022@abix.info.pl"
+    password = "xxxxxx"
     ####
 
     text_type = 'plain'  # or 'html'
@@ -22,6 +22,17 @@ def mail_report(mail_to: str, mail_from: str, data: str) -> bool:
         with smtplib.SMTP_SSL(ip, port, context=context) as server:
             server.login(login, password)
             server.sendmail(msg['From'], msg['To'], msg.as_string())
-        return True
-    except:
-        return False
+        return (True, "Test mail SUCCESS")
+    except Exception as e:
+        return (False, e)
+
+
+if __name__ == "__main__":
+    print(f"to jest tylko uruchomienie testowe: {__name__}")
+    mail_ok, report = mail_report("abix.edukacja@gmail.com", "kielce-2022@abix.info.pl", "TESTOWY MAIL")
+    if mail_ok:
+        print(report)
+    else:
+        print(f"Test mail failed - {report}")
+else:
+    print(f"Importujemy moduł: {__name__}")
