@@ -68,7 +68,7 @@ app_layout = [
     [sg.Column([
         [sg.Button("Sprawdź email")]],
         justification="center")],
-    [sg.Text("Mail FROM:")],
+    [sg.Text("Mail_spec FROM:")],
     [sg.InputText("adam@jurkiewicz.tech")],
     [sg.Column([
         [sg.Button("Wyślij email")]],
@@ -99,9 +99,9 @@ while True:
             )
         ret_code = api_email_test(check_email)
         if ret_code:
-            sg.popup_auto_close("Mail OK", auto_close_duration=2)
+            sg.popup_auto_close("Mail_spec OK", auto_close_duration=2)
         else:
-            sg.popup_auto_close("Mail ERROR", auto_close_duration=3)
+            sg.popup_auto_close("Mail_spec ERROR", auto_close_duration=3)
 
     if event == "Wyślij email":
         print("Wysyłamy email")
@@ -119,11 +119,11 @@ while True:
             sendmail["mailbody"] = mail_body
             send_mail_code = send_mail(mail_from, check_email, mail_body)
             if send_mail_code:
-                sg.popup_auto_close("Mail send OK", auto_close_duration=2)
+                sg.popup_auto_close("Mail_spec send OK", auto_close_duration=2)
             else:
-                sg.popup_auto_close("Mail send ERROR", auto_close_duration=3)
+                sg.popup_auto_close("Mail_spec send ERROR", auto_close_duration=3)
         else:
-            sg.popup_auto_close("Mail ERROR", auto_close_duration=3)
+            sg.popup_auto_close("Mail_spec ERROR", auto_close_duration=3)
 
 # koniec programu
 window.close()

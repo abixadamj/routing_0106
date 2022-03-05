@@ -26,7 +26,7 @@ def api_connect_test(api_address="http://127.0.0.1:8000"):
         sys.exit(2)
 
 
-def send_mail(mail_from, check_email, mail_body, api_address="http://127.0.0.1:8000"):
+def send_mail(api_address="http://127.0.0.1:8000"):
     api_send = f"{api_address}/send_email_header/"
     mail_params = {
         "auth_id": "adasiek",  # tego nie robimy na produkcji !!!!
@@ -36,7 +36,9 @@ def send_mail(mail_from, check_email, mail_body, api_address="http://127.0.0.1:8
         "email_body": sendmail["mailbody"]
     }
     api_result = requests.put(api_send, headers=mail_params)
-    return api_result.status_code, api_result.json()
+    if api_result.status_code == 451:
+        return api_result.status_code, api_result.json()
+    return api_result.status_code, True
 
 
 def api_email_test(email_to_check="none@domain.com", api_address="http://127.0.0.1:8000"):
@@ -63,7 +65,7 @@ app_layout = [
     [sg.Column([
         [sg.Button("Sprawdź email")]],
         justification="center")],
-    [sg.Text("Mail FROM:")],
+    [sg.Text("Mail_spec FROM:")],
     [sg.InputText("kielce-2022@abix.info.pl")],
     [sg.Column([
         [sg.Button("Wyślij email")]],
@@ -94,9 +96,9 @@ while True:
             )
         ret_code = api_email_test(check_email)
         if ret_code:
-            sg.popup_auto_close("Mail OK", auto_close_duration=2)
+            sg.popup_auto_close("Mail_spec OK", auto_close_duration=2)
         else:
-            sg.popup_auto_close("Mail ERROR", auto_close_duration=3)
+            sg.popup_auto_close("Mail_spec ERROR", auto_close_duration=3)
 
     if event == "Wyślij email":
         print("Wysyłamy email")
@@ -112,18 +114,20 @@ while True:
                 mail_body = "No content in mail"
 
             sendmail["mailbody"] = mail_body
-            send_mail_code, send_mail_report = send_mail(mail_from, check_email, mail_body)
+            sendmail["mailfrom"] = mail_from
+            sendmail["mailto"] = check_email
+            send_mail_code, send_mail_report = send_mail()
             if send_mail_code == 201:
-                sg.popup_auto_close("Mail send OK", auto_close_duration=2)
+                sg.popup_auto_close("Mail_spec send OK", auto_close_duration=2)
             elif send_mail_code == 204:
                 sg.popup_auto_close("No CONTENT!", auto_close_duration=2)
             elif send_mail_code == 400:
                 sg.popup_auto_close("Bad request to API", auto_close_duration=2)
             elif send_mail_code == 451:
-                sg.popup_auto_close("Mail send ERROR", send_mail_report, auto_close_duration=10)
+                sg.popup_auto_close("Mail_spec send ERROR", send_mail_report, auto_close_duration=10)
 
         else:
-            sg.popup_auto_close("Mail ERROR", auto_close_duration=3)
+            sg.popup_auto_close("Mail_spec ERROR", auto_close_duration=3)
 
 # koniec programu
 window.close()

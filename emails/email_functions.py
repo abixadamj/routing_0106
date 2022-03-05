@@ -6,7 +6,7 @@ def mail_report(mail_to: str, mail_from: str, data: str) -> bool:
     ip = "mail.abix.info.pl"
     port = 465  # For SSL
     login = "kielce-2022@abix.info.pl"
-    password = ""
+    password = "_kh7sVSybnd!W8D"
     ####
 
     text_type = 'plain'  # or 'html'

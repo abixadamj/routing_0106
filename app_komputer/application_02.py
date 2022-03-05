@@ -74,9 +74,9 @@ while True:
             )
         ret_code = api_email_test(check_email)
         if ret_code:
-            sg.popup_auto_close("Mail OK", auto_close_duration=2)
+            sg.popup_auto_close("Mail_spec OK", auto_close_duration=2)
         else:
-            sg.popup_auto_close("Mail ERROR", auto_close_duration=3)
+            sg.popup_auto_close("Mail_spec ERROR", auto_close_duration=3)
 
 # koniec programu
 window.close()
