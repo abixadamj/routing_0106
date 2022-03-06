@@ -8,7 +8,7 @@ import fastapi_chameleon
 from views import komputery
 from views import inne
 from views import api_responses_test
-from views import templates_adam
+# from views import templates_adam
 from views import templates
 from emails import get_email
 from database import cookies
@@ -26,14 +26,14 @@ def configure_routers():
     app.include_router(api_responses_test.router)
     app.include_router(get_email.router)
     app.include_router(cookies.router)
-    app.include_router(templates_adam.router)
+    # app.include_router(templates_adam.router)
     app.include_router(templates.router)
     app.mount('/static', StaticFiles(directory='static'), name='static')
 
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return responses.RedirectResponse(url='static/index.html')
 
 
 @app.get('/favicon.ico')
