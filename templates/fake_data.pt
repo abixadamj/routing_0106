@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- META tags -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="content-language" content="PL">
+    <!-- mobile ready -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minimal template page with bootstrap</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container-lg">
+    <h4>Some unnumbered list for User id: ${user_name}</h4>
+    <div class="list-group">
+        <div class tal:repeat="element user_list">
+            <li class="list-group-item list-group-item-action">USER: ${element.name}</li>
+            <a href="${element.link}" class="list-group-item list-group-item-action">Browser: ${element.chrome}</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-lg">
+    <ol>
+        <li>Input login : ${user_name}</li>
+        <li>Get a hash for this operation (link generated) and copy it - ${passwd_hash}</li>
+    </ol>
+</div>
+
+<div class="container-lg">
+    <hr/>
+    Some tech spec: ${tech_spec}
+</div>
+
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
