@@ -5,3 +5,6 @@ email-validator
 PySimpleGUI
 requests
 pydantic
+fastapi_chameleon
+faker
+python-multipart
