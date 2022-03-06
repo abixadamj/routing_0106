@@ -1,7 +1,8 @@
 import fastapi
+import os
 from fastapi_chameleon import template
 from database.digest_gen import Digest
-import os
+from fastapi import Form
 
 router = fastapi.APIRouter()
 
@@ -62,3 +63,17 @@ async def index_template():
         "passwd_hash": password.generate(),
         "tech_spec": os.uname(),
     }
+
+
+#  RuntimeError: Form data requires "python-multipart" to be installed.
+@router.post("/templates/post", tags=["templates"])
+async def read_data_form(auth_id: str = Form(...),
+                         password: str = Form(...),
+                         email: str = Form(...),
+                         big_text: str = Form(...),
+                         ):
+    from database.digest_gen import Digest
+    security = Digest()
+    return {"id": auth_id, "pass": password,
+            "email": email, "digest": security.generate(),
+            "text": big_text}
