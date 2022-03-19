@@ -6,7 +6,7 @@
     <meta http-equiv="content-language" content="PL">
     <!-- mobile ready -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Index PAGE</title>
+    <title>Here we put data from Yandex</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -14,12 +14,20 @@
 </head>
 <body>
 
-<div class="container-lg">
-  <h2>Witaj</h2>
-    <hr/>
-    <a href="/static/post-form.html">  <button type="button" class="btn btn-primary">WItaj - wypełnij formularz</button></a>
-    <a href="/static/prezydent-form.html">  <button type="button" class="btn btn-primary">Dane se strony prezydent.pl</button></a>
+<div class="container-lg form-outline">
+    <h4>Here we get HTML data:</h4>
+
+    <form action="/yandex/html" enctype="multipart/form-data" method="post">
+
+        <label class="form-label" for="textAreaExample">HTML from Yandex</label>
+        <textarea class="form-control" id="textAreaExample" name="yandex_html" rows="10"></textarea>
+        <hr>
+        <input type="submit" value="Wyślij dane do przetworzenia">
+    </form>
+
+
 </div>
+
 
 
 

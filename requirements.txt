@@ -8,3 +8,6 @@ pydantic
 fastapi_chameleon
 faker
 python-multipart
+bs4
+html5lib
+

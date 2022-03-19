@@ -10,6 +10,8 @@ from views import inne
 from views import api_responses_test
 # from views import templates_adam
 from views import templates
+from views import bs_post
+from views import prezydent
 from emails import get_email
 from database import cookies
 
@@ -28,6 +30,8 @@ def configure_routers():
     app.include_router(cookies.router)
     # app.include_router(templates_adam.router)
     app.include_router(templates.router)
+    app.include_router(bs_post.router)
+    app.include_router(prezydent.router)
     app.mount('/static', StaticFiles(directory='static'), name='static')
 
 
